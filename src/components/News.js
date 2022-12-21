@@ -17,7 +17,7 @@ const news = ({data}) => {
         title={item.title}
         description={item.description}
         user={item.user}
-        date={item.data}
+        data={item.data}
         image={item.image}
         category={item.category}
     />

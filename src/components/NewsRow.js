@@ -1,19 +1,24 @@
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Icon from 'react-native-ionicons'
-import { addToFavorite, removeFromFavorite, selectFavoriteItems, 
+import { addToFavorite, removeFromFavorite, 
   selectFavoriteItemsWithId } from '../featured/favoriteSlice'
 import { useNavigation } from '@react-navigation/native'
-import { doTruncarStr } from '../functions'
+import { doTruncarStr, primeiroUltimo } from '../functions'
+import { 
+    parseISO, 
+    format
+  } from 'date-fns';
+  import pt from 'date-fns/locale/pt';
 
 
-const NewsRow = ({id,title,description,user, date,image, category})=>{
+const NewsRow = ({id,title,description,user, data,image, category})=>{
     const navigation = useNavigation();
     const items= useSelector(state =>selectFavoriteItemsWithId(state, id))
     const dispatch= useDispatch();
     const addItemsToFavorite =()=>{
-        dispatch(addToFavorite({id, title, description, user,date,image, category }));
+        dispatch(addToFavorite({id, title, description, user,data,image, category }));
     }
     const removeItemFromFavorite = ()=>{
         if(!items.length > 0) return; 
@@ -22,7 +27,7 @@ const NewsRow = ({id,title,description,user, date,image, category})=>{
     return (
     
         <TouchableOpacity onPress={()=>navigation.navigate("News",{
-            id,title,description,user, date,image, category
+            id,title,description,user, data,image, category
         })} style={styles.shadow}  className="w-60 mr-5 rounded-2xl bg-white">
             <View className=" overflow-hidden ">
               <View className="rounded-tr-2xl rounded-tl-2xl overflow-hidden">
@@ -35,19 +40,22 @@ const NewsRow = ({id,title,description,user, date,image, category})=>{
                 <View className="flex-row justify-between items-center">
                     <View className="flex-row items-center gap-1">
                         <Image className="h-7 w-7 rounded-full" source={user.image} />
-                        <Text className="font-rubik-regular text-sm text-gray-700 ">{user.name}</Text>
+                        <Text className="font-rubik-regular text-sm text-gray-700 ">{primeiroUltimo(user.name)}</Text>
                     </View>
-
-                    {
-                       items.length>0 ? <TouchableOpacity onPress={removeItemFromFavorite} className="flex-row items-center">
-                            <Icon name="heart" size={24} color="#e6622e" />
-                            </TouchableOpacity>:
-                            <TouchableOpacity onPress={addItemsToFavorite} className="flex-row items-center">
-                                <Icon className="text-gray-800" name="heart-empty" size={24} color="red" />
-                            </TouchableOpacity>
-                    }
-                    
-
+                    <View className="items-center flex-row gap-4">
+                        <TouchableOpacity className="flex-row items-center">
+                            <Icon android="share" ios='share-alt' size={24} color="#e6622e" />
+                        </TouchableOpacity>
+                        {
+                            items.length>0 ? <TouchableOpacity onPress={removeItemFromFavorite} className="flex-row items-center">
+                                <Icon name="heart" size={24} color="#e6622e" />
+                                </TouchableOpacity>:
+                                <TouchableOpacity onPress={addItemsToFavorite} className="flex-row items-center">
+                                    <Icon className="text-gray-800" name="heart-empty" size={24} />
+                                </TouchableOpacity>
+                        }
+                    </View>
+                   
                     
                 </View>
                 <Text className="mt-2 font-rubik-regular text-gray-700">
@@ -55,11 +63,15 @@ const NewsRow = ({id,title,description,user, date,image, category})=>{
                 </Text>
                 <View className="flex-row justify-between items-center mt-2">
                     <View className="flex-row items-center gap-1">
-                        <Icon className="text-gray-500" ios="calendar" android='calendar' size={16} color="black" />
-                        <Text className="font-rubik-regular text-[11px] text-gray-500 ">{date}</Text>
+                        <Icon className="text-gray-500" ios="calendar" android='calendar' size={16}/>
+                        <Text className="font-rubik-regular text-[11px] text-gray-500 ">{format(
+                            parseISO(data), 
+                            "dd '/' M '/' Y",
+                            { awareOfUnicodeTokens: true, locale: pt}
+                            )}</Text>
                     </View>
                     <View className="flex-row items-center bg-[#e6622e30] px-2 py-1 rounded-md">
-                        <Text className="font-rubik-regular text-sm text-gray-500">{category}</Text>
+                        <Text className="font-rubik-regular text-sm text-gray-500">{category.name}</Text>
                     </View>
                 </View>
                 

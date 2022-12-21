@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import { Provider } from 'react-redux';
 import {
@@ -19,7 +18,7 @@ import {
   Rubik_900Black
 } from '@expo-google-fonts/rubik'
 import React from 'react';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from './src/screens/HomeScreen';

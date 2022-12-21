@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, TextInput, TouchableOpacity } from 'react-native'
 import React, { useState, useMemo } from 'react'
 import Icon from 'react-native-ionicons'
 import Close from './Close'

@@ -10,5 +10,15 @@
 		}
 		return shortText;
 	}
+
+	function primeiroUltimoLetra(str) {
+		var arr = str.split(' ');
+		return arr[0] +" "+ arr[arr.length - 1][0];
+	}
+
+	function primeiroUltimo(str) {
+		var arr = str.split(' ');
+		return arr[0] +" "+ arr[arr.length - 1];
+	}
     
-    export {doTruncarStr}
+    export {doTruncarStr, primeiroUltimo, primeiroUltimoLetra}
