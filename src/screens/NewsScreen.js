@@ -40,7 +40,7 @@ const NewsScreen = () => {
                 <Image source={image} className="h-60 bg-gray-300 p-4 object-cover w-full" />
                 <TouchableOpacity
                     onPress={navigation.goBack}
-                    className="absolute top-[50px] h-9 w-9 left-5 bg-gray-700 items-center justify-center rounded-full"
+                    className="absolute top-[50px] h-9 w-9 left-5 bg-[#e6622e] items-center justify-center rounded-full"
                 >
                     <Icon name='arrow-round-back' size={28} color="#fff"/>
                 </TouchableOpacity>
@@ -83,6 +83,9 @@ const NewsScreen = () => {
                 <Text className="font-rubik-regular text-md text-gray-600">{category.name}</Text>
             </View>
         </View>
+        <Text className="mt-2 font-rubik-regular text-lg text-gray-800 px-5">
+            {description}
+        </Text>
     </ScrollView>
   )
 }

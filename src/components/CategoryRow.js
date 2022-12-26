@@ -13,10 +13,10 @@ const CategoryRow = ({id, name}) => {
   return (
     <>
         {
-            items ? <TouchableOpacity onPress={addItemToState} className="bg-[#e6622e] px-6 py-2 rounded-[15px] mr-4 ">
+            items ? <TouchableOpacity onPress={addItemToState} className="bg-[#e6622e] px-6 py-2 rounded-[15px] mr-4">
             <Text className="text-base font-poppins-bold text-white">{name}</Text>
             </TouchableOpacity>:    
-            <TouchableOpacity onPress={addItemToState} className="bg-[#e6622e40] px-6 py-2 rounded-[15px] mr-4">
+            <TouchableOpacity onPress={addItemToState} className="bg-[#e6622e40] px-6 py-2 rounded-[15px] mr-4 ">
             <Text className="text-base text-gray-500 font-poppins-regular">{name}</Text>
             </TouchableOpacity>
         }

@@ -65,6 +65,22 @@ const data={
         data:"2022-12-25 10:10:00",
         image:require('./../assets/img/img1.jpeg'),
         category:{
+          id:2,
+          name:"Igreja Local"
+        }
+      },
+      {
+        id: 3,
+        title: 'Tarde de louvor e adoração na central do huambo',
+        user:{
+            name:"Jorge Andre",
+            user:"jorge.andre",
+            image:require('./../assets/img/img1.jpeg'),
+        },
+        description:"",
+        data:"2022-12-25 10:10:00",
+        image:require('./../assets/img/img1.jpeg'),
+        category:{
           id:4,
           name:"Jovens Adultos"
         }
@@ -97,7 +113,6 @@ const data={
   ]
 }
 
-
 const HomeScreen = () => {
     const navigation = useNavigation();
     const favoritos = useSelector((state)=>selectFavoriteItems(state))
@@ -111,8 +126,8 @@ const HomeScreen = () => {
     <SafeAreaView className="bg-white pt-5">
       <View className="ml-4 mt-10 mb-4">
         <View>
-          <Text className="text-4xl font-poppins-bold ">Notific  </Text>
-          <Text className="text-gray-500 font-rubik-regular">Todos os anúnicos em único lugar</Text>
+          <Text className="text-4xl font-poppins-bold ">No7ify  </Text>
+          <Text className="text-gray-500 font-rubik-regular">Todos os anúncios em único lugar</Text>
         </View>
         <Search data={data.data}/>
       </View>
@@ -122,7 +137,7 @@ const HomeScreen = () => {
             contentContainerStyle={{
                 paddingBottom:230,
             }}>
-        <Category data={data.category}/>
+        <Category data={data.data}/>
         <Separator title="Novos Anúncios" icon={true} />
         <New data={data.data}/>
         <Separator title="Nossa Equipa" icon={true} />
@@ -134,6 +149,8 @@ const HomeScreen = () => {
             <New data={favoritos}/>
           </>
         }
+
+        <Separator title="Nossa Equipa" icon={true} />
         
       </ScrollView>
     </SafeAreaView>
