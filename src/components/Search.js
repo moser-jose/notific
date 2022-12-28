@@ -1,23 +1,8 @@
 import { View, TextInput, TouchableOpacity } from 'react-native'
-import React, { useState, useMemo } from 'react'
 import Icon from 'react-native-ionicons'
 import Close from './Close'
-import { useSelector } from 'react-redux'
-import { selectState, selectStateWithId } from '../featured/statesSlice'
 
-const Search = ({data}) => {
-    const [input, setInput]=useState("");
-    const stateSelected= useSelector(state =>selectState(state))
-
-    const newsFilter = useMemo(() => {
-        if (!input) {
-          return data;
-        }
-        else{
-          return data.filter((l) => l.title.toLowerCase().match(input) && l.category.id==selectState.id);
-        } 
-      }, [input, data]);
-
+const Search = ({onChangeText, value, setValue}) => {
   return (
     <View className="mr-4 mt-9 flex-row items-center">
           <View className="flex-row items-center flex-1 mr-3 bg-gray-200 p-3 rounded-xl">
@@ -29,11 +14,11 @@ const Search = ({data}) => {
                 placeholderTextColor="#aaa"
                 autoCapitalize="none"
                 autoCorrect={false}
-                value={input}
-                onChangeText={(input) => setInput(input)}
+                value={value}
+                onChangeText={onChangeText}
               />
               {
-                input != "" && <Close onPress={() => setInput('')}/>
+                value != "" && <Close onPress={() => setValue('')}/>
               }
           </View>
           <TouchableOpacity>

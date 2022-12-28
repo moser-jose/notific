@@ -17,11 +17,9 @@ export const StateSlice = createSlice({
   }
 })
 
-// Action creators are generated for each case reducer function
 export const { addToState } = StateSlice.actions;
 
 export const selectState = (state) => state.state.item;
-
 
 export const selectStateWithId = (state, id)=>state.state.item.id == id;
 

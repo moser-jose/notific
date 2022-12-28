@@ -1,7 +1,7 @@
 import { ScrollView } from 'react-native'
 import NewsRow from './NewsRow'
 
-const news = ({data}) => {
+const News = ({data}) => {
   return (
       <ScrollView 
       horizontal
@@ -26,6 +26,4 @@ const news = ({data}) => {
   )
 }
 
-
-
-export default news
+export default News

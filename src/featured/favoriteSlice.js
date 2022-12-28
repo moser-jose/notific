@@ -28,15 +28,10 @@ export const FavoriteSlice = createSlice({
   }
 })
 
-// Action creators are generated for each case reducer function
 export const { addToFavorite, removeFromFavorite } = FavoriteSlice.actions;
 
 export const selectFavoriteItems = (state) => state.favorite.items;
 
 export const selectFavoriteItemsWithId = (state, id)=>state.favorite.items.filter(item=>item.id === id);
-
-/* export const selectBasketTotal = (state) => state.basket.items.reduce((total, item)=>
-total += item.price,0) */
-
 
 export default FavoriteSlice.reducer
