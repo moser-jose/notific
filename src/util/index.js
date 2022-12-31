@@ -11,9 +11,9 @@
 		return shortText;
 	}
 
-	function primeiroUltimoLetra(str) {
+	function primeiroNome(str) {
 		var arr = str.split(' ');
-		return arr[0] +" "+ arr[arr.length - 1][0];
+		return arr[0];
 	}
 
 	function primeiroUltimo(str) {
@@ -21,4 +21,4 @@
 		return arr[0] +" "+ arr[arr.length - 1];
 	}
     
-    export {doTruncarStr, primeiroUltimo, primeiroUltimoLetra}
+    export {doTruncarStr, primeiroUltimo, primeiroNome}

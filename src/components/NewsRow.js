@@ -1,31 +1,31 @@
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Icon from 'react-native-ionicons'
+import {Icon} from '@elevyg/react-native-ionicons';
 import { addToFavorite, removeFromFavorite, 
   selectFavoriteItemsWithId } from '../featured/favoriteSlice'
 import { useNavigation } from '@react-navigation/native'
-import { doTruncarStr, primeiroUltimo } from '../functions'
+import { doTruncarStr, primeiroUltimo } from '../util'
 import { 
     parseISO, 
-    format
+    format,
+    set
   } from 'date-fns';
   import pt from 'date-fns/locale/pt';
 
 
 const NewsRow = ({id,title,description,user, data,image, category})=>{
     const navigation = useNavigation();
-    const items= useSelector(state =>selectFavoriteItemsWithId(state, id))
+    const items = useSelector(state =>selectFavoriteItemsWithId(state, id))
     const dispatch= useDispatch();
     const addItemsToFavorite =()=>{
         dispatch(addToFavorite({id, title, description, user,data,image, category }));
     }
     const removeItemFromFavorite = ()=>{
-        if(!items.length > 0) return; 
+        if(!items.length > 0) return;
         dispatch(removeFromFavorite({id}));
     }
     return (
-    
         <TouchableOpacity onPress={()=>navigation.navigate("News",{
             id,title,description,user, data,image, category
         })} style={styles.shadow}  className="w-60 mr-5 rounded-2xl bg-white">
@@ -42,31 +42,36 @@ const NewsRow = ({id,title,description,user, data,image, category})=>{
                         <Image className="h-7 w-7 rounded-full" source={user.image} />
                         <Text className="font-rubik-regular text-sm text-gray-700 ">{primeiroUltimo(user.name)}</Text>
                     </View>
-                    <View className="items-center flex-row gap-4">
+                    <View className="items-center flex-row gap-3">
                         <TouchableOpacity className="flex-row items-center">
-                            <Icon android="share" ios='share-alt' size={24} color="#e6622e" />
+                            <Icon name='share-social-sharp' size={24} color="#e6622e" />
                         </TouchableOpacity>
+
                         {
-                            items.length>0 ? <TouchableOpacity onPress={removeItemFromFavorite} className="flex-row items-center">
-                                <Icon name="heart" size={24} color="#e6622e" />
-                                </TouchableOpacity>:
-                                <TouchableOpacity onPress={addItemsToFavorite} className="flex-row items-center">
-                                    <Icon className="text-gray-800" name="heart-empty" size={24} />
-                                </TouchableOpacity>
+                             items.length > 0 && 
+                             <TouchableOpacity onPress={removeItemFromFavorite}>
+                                 <Icon name="bookmark" color="#e6622e" size={24} />
+                             </TouchableOpacity>
+                        }
+                        {
+                            items.length == 0 && 
+                            <TouchableOpacity onPress={addItemsToFavorite}>
+                                <Icon name="bookmark-outline" color='#222222' size={24} />
+                            </TouchableOpacity>
                         }
                     </View>
-                   
                     
                 </View>
                 <Text className="mt-2 font-rubik-regular text-gray-700">
                 {doTruncarStr(description, 70)}
                 </Text>
                 <View className="flex-row justify-between items-center mt-2">
-                    <View className="flex-row items-center gap-1">
-                        <Icon className="text-gray-500" ios="calendar" android='calendar' size={16}/>
-                        <Text className="font-rubik-regular text-[11px] text-gray-500 ">{format(
+                
+                    <View className="flex-row items-center">
+                        <Icon name="calendar" size={15} color="#bbb" />
+                        <Text className="ml-1 font-rubik-regular text-[11px] text-gray-500 ">{format(
                             parseISO(data), 
-                            "dd '/' M '/' Y",
+                            "dd'/'M'/'Y",
                             { awareOfUnicodeTokens: true, locale: pt}
                             )}</Text>
                     </View>

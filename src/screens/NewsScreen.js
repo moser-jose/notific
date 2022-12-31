@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Icon from 'react-native-ionicons'
+import {Icon} from '@elevyg/react-native-ionicons';
 import { addToFavorite, removeFromFavorite, 
   selectFavoriteItemsWithId } from '../featured/favoriteSlice'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -10,7 +10,7 @@ import {
     format
   } from 'date-fns';
   import pt from 'date-fns/locale/pt';
-import { primeiroUltimo } from '../functions'
+import { primeiroUltimo } from '../util'
 
 const NewsScreen = () => {
     const navigation =useNavigation();
@@ -42,10 +42,10 @@ const NewsScreen = () => {
                     onPress={navigation.goBack}
                     className="absolute top-[50px] h-9 w-9 left-5 bg-[#e6622e] items-center justify-center rounded-full"
                 >
-                    <Icon name='arrow-round-back' size={28} color="#fff"/>
+                    <Icon name='arrow-back-outline' size={24} color="#fff"/>
                 </TouchableOpacity>
         </View>
-        <Text className="mt-4 px-5 text-xl font-rubik-bold text-gray-800">
+        <Text className="mt-4 px-5 font-rubik-bold text-gray-800 text-2xl">
             {title}
         </Text>
         <View className="flex-row justify-between items-center px-5 py-4">
@@ -57,23 +57,26 @@ const NewsScreen = () => {
 
                     <View className="items-center flex-row gap-6">
                         <TouchableOpacity className="flex-row items-center">
-                            <Icon ios="share-alt" android='share' size={24} color="#e6622e" />
+                            <Icon name='share-social-sharp' size={24} color="#e6622e" />
                         </TouchableOpacity>
                         {
-                            items.length>0 ? <TouchableOpacity onPress={removeItemFromFavorite} className="flex-row items-center">
-                                <Icon name="heart" size={24} color="#e6622e" />
-                                </TouchableOpacity>:
-                                <TouchableOpacity onPress={addItemsToFavorite} className="flex-row items-center">
-                                    <Icon className="text-gray-800" name="heart-empty" size={24} />
+                            items.length>0 && <TouchableOpacity onPress={removeItemFromFavorite} className="flex-row items-center">
+                                <Icon name="bookmark" size={24} color="#e6622e" />
                                 </TouchableOpacity>
+                        }
+                        {
+                            items.length==0 &&
+                            <TouchableOpacity onPress={addItemsToFavorite} className="flex-row items-center">
+                                <Icon name="bookmark-outline" size={24} color="#222222" />
+                            </TouchableOpacity>
                         }
                     </View>
         </View>
 
         <View className="flex-row justify-between items-center pb-4 px-5">
-            <View className="flex-row items-center gap-1">
-                <Icon className="text-gray-500" ios="calendar" android='calendar' size={22} />
-                <Text className="font-rubik-regular text-md text-gray-600 ">{format(
+            <View className="flex-row items-center">
+                <Icon name='calendar' size={22} color="#bbb" />
+                <Text className="ml-1 font-rubik-regular text-md text-gray-600 ">{format(
                 parseISO(data), 
                 "dd 'de' MMMM', às ' HH:mm'h'",
                 { awareOfUnicodeTokens: true, locale: pt}

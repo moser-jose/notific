@@ -24,12 +24,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './src/screens/HomeScreen';
 import { store } from './store';
 import NewsScreen from './src/screens/NewsScreen';
+import Tabs from './src/stacks/Tabs';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    'Ionicons': require('./src/assets/fonts/Ionicons.ttf'),
+    //'Ionicons': require('./src/assets/fonts/Ionicons.ttf'),
     Poppins_400Regular, 
     Poppins_500Medium,
     Poppins_600SemiBold,
@@ -52,7 +53,11 @@ export default function App() {
     <NavigationContainer>
       
         <Provider store={ store }>
-          <Stack.Navigator >
+          <Stack.Navigator 
+          screenOptions={{
+            headerShown: false,
+          }}>
+              <Stack.Screen name="Tabs" component={Tabs}/>
               <Stack.Screen name="Home" component={HomeScreen} />
               <Stack.Screen name="News" component={NewsScreen} />
           </Stack.Navigator>

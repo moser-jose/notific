@@ -1,6 +1,6 @@
-import {Text, ScrollView, TouchableOpacity, Image} from 'react-native'
+import {Text, ScrollView, TouchableOpacity, Image, View} from 'react-native'
 import React from 'react'
-import { primeiroUltimoLetra } from '../functions'
+import { primeiroNome } from '../util'
 
 const Team = ({data}) => {
   return (
@@ -13,9 +13,11 @@ const Team = ({data}) => {
 
     {
       data?.map((item)=>{
-        return <TouchableOpacity key={item.id} className="rounded-xl mr-4 items-center ">
-        <Image className="h-16 w-16 rounded-full border-solid border-[#e6622e] border-2  " source={item.image} />
-        <Text className="font-rubik-regular text-lg text-gray-700 ">{primeiroUltimoLetra(item.name)}</Text>
+        return <TouchableOpacity key={item.id} className="mr-4 items-center">
+        <View className="border-[#e6622e40] border-2  rounded-full p-[3px]">
+        <Image className="h-14 w-14 rounded-full  " source={item.image} />
+        </View>
+        <Text className="font-rubik-regular text-base text-gray-700 ">{primeiroNome(item.name)}</Text>
       </TouchableOpacity>
 
       })

@@ -1,4 +1,4 @@
-import {ScrollView} from 'react-native'
+import {ScrollView, View, Text} from 'react-native'
 import React from 'react'
 import CategoryRow from './CategoryRow'
 
@@ -26,7 +26,6 @@ const Categories = ({data}) => {
       }
     </>
     
-
     </ScrollView>
   )
 }
